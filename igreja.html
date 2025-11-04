@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igreja Batista de Monte Gordo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-img {
+            width: 70px;
+            height: 70px;
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c5f8d;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+
+        nav a:hover {
+            color: #2c5f8d;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 90px;
+            height: 600px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%232c5f8d" width="1200" height="600"/><path fill="%234a90c9" opacity="0.3" d="M0,300 Q300,200 600,300 T1200,300 L1200,600 L0,600 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            max-width: 900px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #ffd700;
+            color: #2c5f8d;
+        }
+
+        .btn-primary:hover {
+            background: #ffed4e;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #2c5f8d;
+            transform: translateY(-3px);
+        }
+
+        /* Welcome Section */
+        .welcome {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .welcome h2 {
+            font-size: 2.5rem;
+            color: #2c5f8d;
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        /* Cards Section */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #f8f9fa;
+        }
+
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2c5f8d, #4a90c9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            color: #2c5f8d;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Events Section */
+        .events {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .events h2 {
+            font-size: 2.5rem;
+            color: #2c5f8d;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #2c5f8d, #4a90c9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .event-content {
+            padding: 2rem;
+        }
+
+        .event-content h3 {
+            font-size: 1.5rem;
+            color: #2c5f8d;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-date {
+            color: #ffd700;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .event-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #2c5f8d, #4a90c9);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .social-icon:hover {
+            background: #4a90c9;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s;
+            z-index: 999;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .event-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='95' fill='none' stroke='%232c5f8d' stroke-width='5'/%3E%3Ctext x='100' y='75' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='%232c5f8d' text-anchor='middle'%3EIBE%3C/text%3E%3Cpath d='M50,110 Q100,105 150,110 L145,115 Q100,110 55,115 Z M50,120 Q100,115 150,120 L145,125 Q100,120 55,125 Z' fill='%232c5f8d'/%3E%3Ctext x='100' y='35' font-family='Arial, sans-serif' font-size='12' fill='%232c5f8d' text-anchor='middle'%3EMONTE GORDO%3C/text%3E%3Ctext x='50' y='100' font-family='Arial, sans-serif' font-size='10' fill='%232c5f8d' text-anchor='middle' transform='rotate(-90 50 100)'%3EIGREJA BATISTA EMANUEL%3C/text%3E%3Ctext x='150' y='100' font-family='Arial, sans-serif' font-size='10' fill='%232c5f8d' text-anchor='middle' transform='rotate(90 150 100)'%3ECAMAÇARI - BA%3C/text%3E%3Ctext x='100' y='170' font-family='Arial, sans-serif' font-size='12' fill='%232c5f8d' text-anchor='middle'%3EDEUS CONOSCO%3C/text%3E%3C/svg%3E" alt="IBE Logo" class="logo-img">
+                <span class="logo-text">Igreja Batista Emanuel</span>
+            </div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#ministerios">Ministérios</a></li>
+                <li><a href="#eventos">Eventos</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Bem-vindo à Igreja Batista Emanuel</h1>
+            <p>DEUS CONOSCO - Uma comunidade de fé, esperança e amor em Monte Gordo</p>
+            <div class="cta-buttons">
+                <a href="#eventos" class="btn btn-primary">Próximos Eventos</a>
+                <a href="#contato" class="btn btn-secondary">Visite-nos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="welcome" id="sobre">
+        <h2>Sobre Nós</h2>
+        <p>A Igreja Batista Emanuel (IBE) é uma comunidade cristã em Monte Gordo, Camaçari-BA, dedicada a viver o significado do nosso nome: DEUS CONOSCO. Nossa missão é proclamar o evangelho de Jesus Cristo, promover comunhão verdadeira e servir com amor.</p>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="cards" id="ministerios">
+        <div class="card">
+            <div class="card-icon">📖</div>
+            <h3>Cultos</h3>
+            <p>Domingo às 9h e 19h<br>Quarta às 20h</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">👨‍👩‍👧‍👦</div>
+            <h3>Ministério Infantil</h3>
+            <p>Ensinando as crianças sobre o amor de Deus de forma lúdica e educativa.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🎵</div>
+            <h3>Louvor</h3>
+            <p>Adoração com música que toca o coração e glorifica ao Senhor.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🙏</div>
+            <h3>Grupos de Oração</h3>
+            <p>Intercedendo pela comunidade e pelas necessidades de cada um.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">👥</div>
+            <h3>Células</h3>
+            <p>Pequenos grupos que se reúnem para comunhão e estudo bíblico.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">❤️</div>
+            <h3>Ação Social</h3>
+            <p>Levando o amor de Cristo através de ações práticas na comunidade.</p>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events" id="eventos">
+        <h2>Próximos Eventos</h2>
+        <div class="event-grid">
+            <div class="event-card">
+                <div class="event-image">🎉</div>
+                <div class="event-content">
+                    <h3>Culto de Celebração</h3>
+                    <span class="event-date">Todo Domingo | 9h e 19h</span>
+                    <p>Venha celebrar conosco em nossos cultos de adoração e ensino da Palavra.</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-image">📚</div>
+                <div class="event-content">
+                    <h3>Escola Bíblica Dominical</h3>
+                    <span class="event-date">Domingos | 10h30</span>
+                    <p>Estudo sistemático da Bíblia para todas as idades.</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-image">🌟</div>
+                <div class="event-content">
+                    <h3>Culto de Jovens</h3>
+                    <span class="event-date">Sextas | 20h</span>
+                    <p>Momento especial para os jovens adorarem e crescerem na fé juntos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contato">
+        <h2>Entre em Contato</h2>
+        <p>Estamos prontos para receber você e sua família!</p>
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <p><strong>Endereço</strong><br>Monte Gordo, Camaçari - BA</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📞</div>
+                <p><strong>Telefone</strong><br>(71) 9 9999-9999</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">✉️</div>
+                <p><strong>Email</strong><br>contato@ibmontegordo.com.br</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <div class="social-icon">📘</div>
+            <div class="social-icon">📷</div>
+            <div class="social-icon">▶️</div>
+        </div>
+        <p>&copy; 2024 Igreja Batista Emanuel - Monte Gordo - Todos os direitos reservados</p>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <div class="whatsapp-btn" onclick="window.open('https://wa.me/5571999999999', '_blank')">
+        💬
+    </div>
+</body>
+</html>
