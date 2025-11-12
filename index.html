@@ -24,6 +24,7 @@
             padding-top: 90px;
         }
 
+        /* Estrutura Principal e Navegação */
         header {
             background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #2980b9 100%);
             padding: 1.5rem 0;
@@ -149,10 +150,11 @@
             transform: translateY(-3px);
         }
 
+        /* Seção de Conteúdo Centralizada (Simplificado) */
         .content-section {
             padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 1200px; /* Limita o conteúdo principal */
+            margin: 0 auto;    /* Centraliza o conteúdo principal */
             text-align: center;
         }
 
@@ -190,29 +192,21 @@
             border-radius: 8px;
         }
         
-        /* Cultos Fixos */
+        /* Cultos Fixos (Fundo Azul Claro) */
         .fixed-cults {
-            /* Largura Total */
-            width: 100vw; 
-            position: relative; 
-            left: 50%;
-            margin-left: -50vw;
-            
-            background: #e9f5ff;
-            padding: 4rem 2rem;
-            text-align: center;
+            /* Adiciona o fundo azul claro */
+            background: #e9f5ff; 
+            padding: 5rem 2rem;
+            /* Centralização e max-width virão do .content-section */
         }
 
-        /* NOVO: Centralizar o Cult Grid dentro da seção de largura total */
-        .fixed-cults .cult-grid {
-            max-width: 1200px;
-            margin: 2rem auto 0 auto; 
-            display: flex; 
+        .cult-grid {
+            display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
             gap: 2rem;
+            margin-top: 2rem;
         }
-
 
         .cult-card {
             background: white;
@@ -237,7 +231,8 @@
         
         /* Events Section */
         .events {
-            background: #f8f9fa;
+            /* Adiciona o fundo cinza claro */
+            background: #f8f9fa; 
         }
 
         .events h2 {
@@ -275,30 +270,18 @@
             margin-bottom: 0.5rem;
         }
         
-        /* --- Estilos da Nova Seção Projetos (Largura Total) --- */
+        /* --- Estilos da Nova Seção Projetos (Fundo Cinza Claro) --- */
 
         .projects {
-            width: 100vw; 
-            position: relative; 
-            left: 50%;
-            margin-left: -50vw;
-            
-            background: #f8f9fa; /* Fundo cinza claro */
-            padding: 5rem 0; 
+            /* Adiciona o fundo cinza claro */
+            background: #f8f9fa;
+            padding: 5rem 2rem;
             border-bottom: 5px solid #e9f5ff;
-        }
-
-        /* NOVO: Wrapper para centralizar o conteúdo dentro da seção de largura total */
-        .projects .content-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem; /* Adiciona padding interno para telas pequenas */
-            text-align: center;
+            /* Centralização e max-width virão do .content-section */
         }
 
         .projects h2 {
             color: #2980b9;
-            margin-bottom: 1.5rem;
         }
 
         .project-card-container {
@@ -343,7 +326,7 @@
         .project-details {
             margin: 1.5rem 0;
             padding: 1rem;
-            background: #f8f9fa; /* Fundo cinza claro para detalhes internos */
+            background: #f8f9fa; 
             border-radius: 10px;
             text-align: left;
             border-left: 3px solid #2980b9;
@@ -360,11 +343,11 @@
             margin-top: 1rem;
         }
 
-        /* Footer */
+        /* Footer (Simplificado e Limpo) */
         footer {
             background: #1e5a8e;
             color: white;
-            padding: 2.5rem 1rem 0; /* Ajustado o padding */
+            padding: 2.5rem 1rem 0;
         }
 
         .footer-content-wrapper {
@@ -386,7 +369,7 @@
         .footer-col h3, .footer-col h4 {
             margin-bottom: 0.8rem;
             font-weight: 600;
-            color: #2980b9; /* Cor azul para destacar os títulos */
+            color: #2980b9; 
         }
 
         .footer-col h4 {
@@ -459,7 +442,7 @@
             background-color: #128c7e;
         }
 
-        /* Modal (Estilos) */
+        /* Modal e Admin (Estilos não alterados) */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
         .modal-content { background: white; margin: 5% auto; padding: 2rem; border-radius: 15px; max-width: 500px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
         .modal-content h2 { color: #1e5a8e; margin-bottom: 1.5rem; }
@@ -477,11 +460,9 @@
         .event-item { background: white; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #2980b9; }
         .btn-delete { background: #dc3545; color: white; padding: 0.5rem 1rem; border: none; border-radius: 8px; cursor: pointer; }
 
+        /* Responsividade */
         @media (max-width: 768px) {
-            nav {
-                padding: 0 1.5rem;
-            }
-            
+            nav { padding: 0 1.5rem; }
             nav ul {
                 position: absolute;
                 top: 100px;
@@ -493,76 +474,28 @@
                 padding: 1rem 0;
                 display: none;
             }
-
-            nav ul.open {
-                display: flex;
-            }
-
-            nav ul li {
-                padding: 0.5rem 3rem;
-                text-align: center;
-            }
-
-            nav a {
-                color: #1e5a8e;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .content-section {
-                padding: 3rem 1.5rem;
-            }
-            
-            .admin-content {
-                margin: 1rem auto;
-                padding: 1rem;
-            }
-            
-            .admin-header {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .event-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-
-            #versiculo-display {
-                font-size: 1.1rem;
-            }
-
-            /* Footer Responsivo */
-            .footer-col {
-                text-align: center;
-            }
-            .footer-col h3 {
-                margin-top: 1rem;
-            }
+            nav ul.open { display: flex; }
+            nav ul li { padding: 0.5rem 3rem; text-align: center; }
+            nav a { color: #1e5a8e; }
+            .menu-toggle { display: flex; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.1rem; }
+            .content-section { padding: 3rem 1.5rem; }
+            #versiculo-display { font-size: 1.1rem; }
+            .footer-col { text-align: center; }
+            .footer-col h3 { margin-top: 1rem; }
         }
 
         @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .logo-text {
-                font-size: 1.1rem;
-            }
-            .whatsapp-float {
-                width: 50px;
-                height: 50px;
-                font-size: 25px;
+            .hero h1 { font-size: 2rem; }
+            .logo-text { font-size: 1.1rem; }
+            .whatsapp-float { width: 50px; height: 50px; font-size: 25px; }
+        }
+        
+        @media (min-width: 768px) {
+            .footer-col {
+                width: 30%; 
+                margin-bottom: 0;
             }
         }
     </style>
@@ -608,30 +541,28 @@
         <p>A Igreja Batista Emanuel (IBE) é uma comunidade cristã em Monte Gordo, Camaçari-BA, dedicada a viver o significado do nosso nome: DEUS CONOSCO. Nossa missão é proclamar o evangelho de Jesus Cristo, promover comunhão verdadeira e servir com amor.</p>
     </section>
 
-    <section class="projects" id="projetos">
-        <div class="content-wrapper">
-            <h2>Projetos Sociais da IBE</h2>
-            
-            <div class="project-card-container">
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-child"></i>
-                    </div>
-                    <h3>Projeto Sonho de Criança</h3>
-                    <p>Nossa missão é levar alegria, educação e o amor de Cristo para as crianças carentes de Monte Gordo.</p>
-                    
-                    <div class="project-details">
-                        <p>⭐ **Foco:** Apoio educacional, alimentação e evangelismo infantil.</p>
-                        <p>🗓️ **Periodicidade:** Ações mensais e eventos especiais (Páscoa e Natal).</p>
-                        <p>🤝 **Como Ajudar:** Doações de alimentos, brinquedos e voluntariado.</p>
-                    </div>
-
-                    <a href="https://www.ibemgsonhodecrianca.com.br/" target="_blank" class="btn btn-primary btn-small">Acesse o Site do Projeto</a>
+    <section class="content-section projects" id="projetos">
+        <h2>Projetos Sociais da IBE</h2>
+        
+        <div class="project-card-container">
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-child"></i>
                 </div>
+                <h3>Projeto Sonho de Criança</h3>
+                <p>Nossa missão é levar alegria, educação e o amor de Cristo para as crianças carentes de Monte Gordo.</p>
+                
+                <div class="project-details">
+                    <p>⭐ **Foco:** Apoio educacional, alimentação e evangelismo infantil.</p>
+                    <p>🗓️ **Periodicidade:** Ações mensais e eventos especiais (Páscoa e Natal).</p>
+                    <p>🤝 **Como Ajudar:** Doações de alimentos, brinquedos e voluntariado.</p>
+                </div>
+
+                <a href="https://www.ibemgsonhodecrianca.com.br/" target="_blank" class="btn btn-primary btn-small">Acesse o Site do Projeto</a>
             </div>
         </div>
     </section>
-    <section class="fixed-cults" id="cultos">
+    <section class="content-section fixed-cults" id="cultos">
         <h2>Horarios dos Cultos</h2>
         <div class="cult-grid">
             <div class="cult-card">
