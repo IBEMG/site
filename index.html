@@ -201,13 +201,17 @@
             color: #555;
         }
         
-        /* NOVO ESTILO PARA VERSÍCULO */
+        /* ESTILO PARA DESTAQUE DO VERSÍCULO PÚBLICO */
         .event-versiculo {
             font-style: italic;
             color: #1e5a8e;
-            margin-top: 10px;
-            border-top: 1px dashed #ccc;
-            padding-top: 10px;
+            margin-top: 15px; /* Aumentei a margem */
+            padding: 10px 15px; /* Adicionei padding */
+            background: #e9f5ff; /* Fundo levemente azul */
+            border-left: 5px solid #2980b9; /* Borda de destaque */
+            border-radius: 5px;
+            font-weight: 500;
+            display: block; /* Garante que o bloco ocupe a largura */
         }
 
         /* Events Section */
@@ -528,7 +532,7 @@
                 evento: "Culto de Gratidão",
                 descricao: "Um momento de agradecimento a Deus.",
                 local: "Igreja Batista Emanuel",
-                versiculo: "Salmos 107:1" // Versículo padrão adicionado
+                versiculo: "Salmos 107:1" 
             },
             {
                 id: 2,
@@ -537,7 +541,7 @@
                 evento: "Vigília Jovem",
                 descricao: "Noite de oração e louvor com a juventude.",
                 local: "Igreja Batista Emanuel",
-                versiculo: "Isaías 40:31" // Versículo padrão adicionado
+                versiculo: "Isaías 40:31" 
             },
             {
                 id: 3,
@@ -546,7 +550,7 @@
                 evento: "Culto de Natal",
                 descricao: "Celebração do nascimento de Jesus.",
                 local: "Igreja Batista Emanuel",
-                versiculo: "Lucas 2:11" // Versículo padrão adicionado
+                versiculo: "Lucas 2:11" 
             }
         ];
 
@@ -558,8 +562,7 @@
 
         function validatePassword() {
             const password = document.getElementById('passwordInput').value;
-            // Se você quiser que a senha seja salva de alguma forma, precisaria de um backend.
-            // Por enquanto, a senha continua fixa: IBEMG2002
+            // Senha fixa
             if (password === 'IBEMG2002') {
                 isAdmin = true;
                 closePasswordModal();
@@ -590,7 +593,13 @@
         async function getEvents() {
             const stored = localStorage.getItem(STORAGE_KEY);
             if (stored) {
-                return JSON.parse(stored);
+                // Adiciona a propriedade 'versiculo' se ela não existir em eventos antigos
+                let eventos = JSON.parse(stored);
+                eventos = eventos.map(e => ({
+                    ...e,
+                    versiculo: e.versiculo !== undefined ? e.versiculo : (e.mensagem || 'A Palavra será o centro.')
+                }));
+                return eventos;
             }
             // Se não houver nada no storage, salva os eventos iniciais e retorna eles
             await saveEvents([...eventosIniciais]);
@@ -613,14 +622,14 @@
             const dateInput = document.getElementById('eventDate');
             const timeInput = document.getElementById('eventTime');
             const nameInput = document.getElementById('eventName');
-            const versiculoInput = document.getElementById('eventVersiculo'); // NOVO CAMPO
+            const versiculoInput = document.getElementById('eventVersiculo'); 
             const descInput = document.getElementById('eventDesc');
             const localInput = document.getElementById('eventLocal');
             
             const date = dateInput.value;
             const time = timeInput.value;
             const name = nameInput.value;
-            const versiculo = versiculoInput.value; // VALOR DO NOVO CAMPO
+            const versiculo = versiculoInput.value;
             const desc = descInput.value;
             const local = localInput.value;
 
@@ -636,7 +645,7 @@
                 evento: name,
                 descricao: desc || 'Sem descrição',
                 local: local || 'Igreja Batista Emanuel',
-                versiculo: versiculo || 'A Palavra será o centro.' // SALVANDO O NOVO CAMPO
+                versiculo: versiculo || 'A Palavra será o centro.' 
             };
 
             const eventos = await getEvents();
@@ -649,7 +658,7 @@
                 dateInput.value = '';
                 timeInput.value = '';
                 nameInput.value = '';
-                versiculoInput.value = ''; // LIMPAR NOVO CAMPO
+                versiculoInput.value = ''; 
                 descInput.value = '';
                 localInput.value = '';
                 
@@ -723,6 +732,7 @@
                 return;
             }
 
+            // Mapeamento para exibição pública (com destaque no versículo)
             container.innerHTML = eventosFuturos.map(evento => `
                 <div class="event-card">
                     <div class="event-content">
@@ -731,7 +741,7 @@
                         <p class="event-date">🕐 ${evento.hora}</p>
                         <p class="event-date">📍 ${evento.local}</p>
                         <p>${evento.descricao}</p>
-                        ${evento.versiculo ? `<p class="event-versiculo">📖 Versículo: ${evento.versiculo}</p>` : ''}
+                        ${evento.versiculo && evento.versiculo !== 'A Palavra será o centro.' ? `<p class="event-versiculo">📖 ${evento.versiculo}</p>` : ''}
                     </div>
                 </div>
             `).join('');
@@ -757,6 +767,7 @@
                 return;
             }
 
+            // Mapeamento para exibição no Painel Admin
             container.innerHTML = eventosOrdenados.map(evento => `
                 <div class="event-item">
                     <div>
