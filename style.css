@@ -1,0 +1,364 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #ffffff;
+    /* Padding para evitar que o conteúdo fique atrás do header fixo */
+    padding-top: 90px;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #2980b9 100%);
+    padding: 1.5rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 3rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.logo-img {
+    height: 70px;
+    width: 70px;
+    object-fit: contain;
+}
+
+.logo-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1e5a8e;
+}
+
+/* Menu Toggle (Mobile) */
+.menu-toggle {
+    display: none; /* Esconde por padrão em desktop */
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001;
+}
+
+.menu-toggle span {
+    width: 30px;
+    height: 3px;
+    background: #1e5a8e;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 3rem;
+    transition: all 0.3s ease-in-out;
+}
+
+nav a {
+    color: #1e5a8e; /* Corrigido para a cor do logo, já que o fundo do menu está claro */
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: 500;
+    font-size: 1.05rem;
+}
+
+nav a:hover {
+    color: #2980b9;
+}
+
+/* Hero Section */
+.hero {
+    height: 600px;
+    background: linear-gradient(135deg, rgba(30, 90, 142, 0.95), rgba(41, 128, 185, 0.9)), 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%231e5a8e" width="1200" height="600"/><path fill="%232980b9" opacity="0.3" d="M0,300 Q300,200 600,300 T1200,300 L1200,600 L0,600 Z"/></svg>');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    text-align: center;
+    color: white;
+    max-width: 900px;
+    padding: 2rem;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: #2980b9;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1e5a8e;
+    transform: translateY(-3px);
+}
+
+/* Seções de Conteúdo */
+.content-section {
+    padding: 5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.content-section h2 {
+    font-size: 2.5rem;
+    color: #1e5a8e;
+    margin-bottom: 1.5rem;
+}
+
+/* Cultos Fixos */
+.fixed-cults {
+    background: #e9f5ff; /* Fundo mais claro para destaque */
+    padding: 4rem 2rem;
+}
+
+.cult-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.cult-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    width: 300px;
+    text-align: left;
+    border-top: 5px solid #2980b9;
+}
+
+.cult-card h3 {
+    color: #1e5a8e;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.cult-card p {
+    margin: 0.3rem 0;
+    color: #555;
+}
+
+/* Events Section */
+.events {
+    background: #f8f9fa;
+}
+
+.events h2 {
+    margin-bottom: 3rem;
+}
+
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 2rem;
+    text-align: left;
+}
+
+.event-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    border-left: 4px solid #2980b9;
+}
+
+.event-content {
+    padding: 2rem;
+}
+
+.event-content h3 {
+    font-size: 1.5rem;
+    color: #1e5a8e;
+    margin-bottom: 0.8rem;
+}
+
+.event-date {
+    color: #2980b9;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Footer */
+footer {
+    background: #1e5a8e;
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+footer p {
+    margin: 0.5rem 0;
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    color: #fff;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 3px #999;
+    z-index: 1500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.whatsapp-float:hover {
+    background-color: #128c7e;
+}
+
+/* Modal (Estilos) */
+.modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
+.modal-content { background: white; margin: 5% auto; padding: 2rem; border-radius: 15px; max-width: 500px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+.modal-content h2 { color: #1e5a8e; margin-bottom: 1.5rem; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500; }
+.form-group input { width: 100%; padding: 0.8rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; }
+.form-group input:focus { outline: none; border-color: #2980b9; }
+.btn-close { background: #dc3545; color: white; padding: 0.5rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; margin-left: 1rem; }
+.admin-panel { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); overflow-y: auto; }
+.admin-content { background: white; margin: 2rem auto; padding: 2rem; max-width: 90%; border-radius: 15px; }
+.admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.admin-header h2 { color: #1e5a8e; }
+.event-form { background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; }
+.event-list { margin-top: 2rem; }
+.event-item { background: white; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #2980b9; }
+.btn-delete { background: #dc3545; color: white; padding: 0.5rem 1rem; border: none; border-radius: 8px; cursor: pointer; }
+
+/* Media Queries para Layout Responsivo (Celulares) */
+@media (max-width: 768px) {
+    nav {
+        padding: 0 1.5rem; /* Reduzido padding */
+    }
+    
+    nav ul {
+        /* Configuração inicial do menu mobile */
+        position: absolute;
+        top: 100px; /* Abaixo do header */
+        right: 0;
+        flex-direction: column;
+        width: 100%;
+        background: #f8f9fa;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        padding: 1rem 0;
+        display: none; /* Escondido por padrão */
+    }
+
+    nav ul.open {
+        display: flex; /* Exibe quando a classe 'open' é adicionada */
+    }
+    
+    nav ul li {
+        padding: 0.5rem 3rem;
+        text-align: center;
+    }
+
+    nav a {
+        color: #1e5a8e; /* Garante a cor correta no menu mobile com fundo claro */
+    }
+
+    .menu-toggle {
+        display: flex; /* Exibe o ícone de menu em mobile */
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem; /* Ajuste para caber melhor */
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+    }
+    
+    .content-section {
+        padding: 3rem 1.5rem;
+    }
+    
+    .admin-content {
+        margin: 1rem auto;
+        padding: 1rem;
+    }
+    
+    .admin-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .event-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    .logo-text {
+        font-size: 1.1rem;
+    }
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        font-size: 25px;
+    }
+}
