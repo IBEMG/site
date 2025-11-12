@@ -200,6 +200,15 @@
             margin: 0.3rem 0;
             color: #555;
         }
+        
+        /* NOVO ESTILO PARA VERSÍCULO */
+        .event-versiculo {
+            font-style: italic;
+            color: #1e5a8e;
+            margin-top: 10px;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
 
         /* Events Section */
         .events {
@@ -485,6 +494,10 @@
                     <input type="text" id="eventName" placeholder="Ex: Culto da Família">
                 </div>
                 <div class="form-group">
+                    <label>Versículo (Opcional):</label>
+                    <input type="text" id="eventVersiculo" placeholder="Ex: Romanos 5:5">
+                </div>
+                <div class="form-group">
                     <label>Descrição:</label>
                     <input type="text" id="eventDesc" placeholder="Descrição do evento">
                 </div>
@@ -514,7 +527,8 @@
                 hora: "17:00",
                 evento: "Culto de Gratidão",
                 descricao: "Um momento de agradecimento a Deus.",
-                local: "Igreja Batista Emanuel"
+                local: "Igreja Batista Emanuel",
+                versiculo: "Salmos 107:1" // Versículo padrão adicionado
             },
             {
                 id: 2,
@@ -522,7 +536,8 @@
                 hora: "20:00",
                 evento: "Vigília Jovem",
                 descricao: "Noite de oração e louvor com a juventude.",
-                local: "Igreja Batista Emanuel"
+                local: "Igreja Batista Emanuel",
+                versiculo: "Isaías 40:31" // Versículo padrão adicionado
             },
             {
                 id: 3,
@@ -530,7 +545,8 @@
                 hora: "19:00",
                 evento: "Culto de Natal",
                 descricao: "Celebração do nascimento de Jesus.",
-                local: "Igreja Batista Emanuel"
+                local: "Igreja Batista Emanuel",
+                versiculo: "Lucas 2:11" // Versículo padrão adicionado
             }
         ];
 
@@ -542,6 +558,8 @@
 
         function validatePassword() {
             const password = document.getElementById('passwordInput').value;
+            // Se você quiser que a senha seja salva de alguma forma, precisaria de um backend.
+            // Por enquanto, a senha continua fixa: IBEMG2002
             if (password === 'IBEMG2002') {
                 isAdmin = true;
                 closePasswordModal();
@@ -595,12 +613,14 @@
             const dateInput = document.getElementById('eventDate');
             const timeInput = document.getElementById('eventTime');
             const nameInput = document.getElementById('eventName');
+            const versiculoInput = document.getElementById('eventVersiculo'); // NOVO CAMPO
             const descInput = document.getElementById('eventDesc');
             const localInput = document.getElementById('eventLocal');
             
             const date = dateInput.value;
             const time = timeInput.value;
             const name = nameInput.value;
+            const versiculo = versiculoInput.value; // VALOR DO NOVO CAMPO
             const desc = descInput.value;
             const local = localInput.value;
 
@@ -615,7 +635,8 @@
                 hora: time,
                 evento: name,
                 descricao: desc || 'Sem descrição',
-                local: local || 'Igreja Batista Emanuel'
+                local: local || 'Igreja Batista Emanuel',
+                versiculo: versiculo || 'A Palavra será o centro.' // SALVANDO O NOVO CAMPO
             };
 
             const eventos = await getEvents();
@@ -628,6 +649,7 @@
                 dateInput.value = '';
                 timeInput.value = '';
                 nameInput.value = '';
+                versiculoInput.value = ''; // LIMPAR NOVO CAMPO
                 descInput.value = '';
                 localInput.value = '';
                 
@@ -709,6 +731,7 @@
                         <p class="event-date">🕐 ${evento.hora}</p>
                         <p class="event-date">📍 ${evento.local}</p>
                         <p>${evento.descricao}</p>
+                        ${evento.versiculo ? `<p class="event-versiculo">📖 Versículo: ${evento.versiculo}</p>` : ''}
                     </div>
                 </div>
             `).join('');
@@ -739,7 +762,8 @@
                     <div>
                         <strong>${evento.evento}</strong><br>
                         📅 ${evento.data} às ${evento.hora} | 📍 ${evento.local}<br>
-                        📝 ${evento.descricao}
+                        📝 ${evento.descricao}<br>
+                        ${evento.versiculo ? `📖 ${evento.versiculo}` : ''}
                     </div>
                     <button class="btn-delete" onclick="deleteEvent(${evento.id})">🗑️ Excluir</button>
                 </div>
