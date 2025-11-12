@@ -166,6 +166,34 @@
             margin-bottom: 1.5rem;
         }
 
+        /* --- NOVO: Versículo da Semana --- */
+        #versiculo-da-semana {
+            background: #fff;
+            padding: 2rem 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-bottom: 3px solid #f8f9fa;
+        }
+
+        #versiculo-da-semana h2 {
+            font-size: 1.8rem;
+            color: #1e5a8e;
+            margin-bottom: 0.5rem;
+        }
+
+        #versiculo-display {
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #2980b9;
+            font-weight: 600;
+            padding: 1rem;
+            border: 2px dashed #e9f5ff;
+            display: inline-block;
+            max-width: 800px;
+            margin: 10px auto 0;
+            border-radius: 8px;
+        }
+        
         /* Cultos Fixos */
         .fixed-cults {
             background: #e9f5ff;
@@ -201,19 +229,6 @@
             color: #555;
         }
         
-        /* ESTILO PARA DESTAQUE DO VERSÍCULO PÚBLICO */
-        .event-versiculo {
-            font-style: italic;
-            color: #1e5a8e;
-            margin-top: 15px; /* Aumentei a margem */
-            padding: 10px 15px; /* Adicionei padding */
-            background: #e9f5ff; /* Fundo levemente azul */
-            border-left: 5px solid #2980b9; /* Borda de destaque */
-            border-radius: 5px;
-            font-weight: 500;
-            display: block; /* Garante que o bloco ocupe a largura */
-        }
-
         /* Events Section */
         .events {
             background: #f8f9fa;
@@ -303,7 +318,7 @@
         .admin-content { background: white; margin: 2rem auto; padding: 2rem; max-width: 90%; border-radius: 15px; }
         .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
         .admin-header h2 { color: #1e5a8e; }
-        .event-form { background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; }
+        .form-section { background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; }
         .event-list { margin-top: 2rem; }
         .event-item { background: white; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #2980b9; }
         .btn-delete { background: #dc3545; color: white; padding: 0.5rem 1rem; border: none; border-radius: 8px; cursor: pointer; }
@@ -370,6 +385,10 @@
                 align-items: flex-start;
                 gap: 10px;
             }
+
+            #versiculo-display {
+                font-size: 1.1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -417,6 +436,10 @@
         </div>
     </section>
 
+    <section id="versiculo-da-semana">
+        <h2>Versículo para Gravar</h2>
+        <p id="versiculo-display">Carregando o Versículo...</p>
+    </section>
     <section class="content-section" id="sobre">
         <h2>Sobre Nós</h2>
         <p>A Igreja Batista Emanuel (IBE) é uma comunidade cristã em Monte Gordo, Camaçari-BA, dedicada a viver o significado do nosso nome: DEUS CONOSCO. Nossa missão é proclamar o evangelho de Jesus Cristo, promover comunhão verdadeira e servir com amor.</p>
@@ -479,12 +502,20 @@
     <div id="adminPanel" class="admin-panel">
         <div class="admin-content">
             <div class="admin-header">
-                <h2>Gerenciar Eventos</h2>
+                <h2>Gerenciar Conteúdo</h2>
                 <button class="btn-close" onclick="closeAdmin()">Fechar</button>
             </div>
 
-            <div class="event-form">
-                <h3>Adicionar Novo Evento</h3>
+            <div class="form-section">
+                <h3>📖 Atualizar Versículo da Semana</h3>
+                <div class="form-group">
+                    <label>Novo Versículo (Texto e Referência):</label>
+                    <input type="text" id="novoVersiculoInput" placeholder="Ex: João 3:16 - Porque Deus amou o mundo de tal maneira...">
+                </div>
+                <button class="btn btn-primary" onclick="updateVersiculo()">Atualizar Versículo</button>
+            </div>
+            <div class="form-section">
+                <h3>📅 Adicionar Novo Evento</h3>
                 <div class="form-group">
                     <label>Data:</label>
                     <input type="date" id="eventDate">
@@ -496,10 +527,6 @@
                 <div class="form-group">
                     <label>Nome do Evento:</label>
                     <input type="text" id="eventName" placeholder="Ex: Culto da Família">
-                </div>
-                <div class="form-group">
-                    <label>Versículo (Opcional):</label>
-                    <input type="text" id="eventVersiculo" placeholder="Ex: Romanos 5:5">
                 </div>
                 <div class="form-group">
                     <label>Descrição:</label>
@@ -521,9 +548,13 @@
 
     <script>
         let isAdmin = false;
-        const STORAGE_KEY = 'ibe-eventos';
+        const STORAGE_KEY_EVENTS = 'ibe-eventos';
+        const STORAGE_KEY_VERSICULO = 'ibe-versiculo'; // NOVA CHAVE
 
-        // Eventos iniciais padrão
+        // Versículo inicial (padrão)
+        const versiculoInicial = "Josué 1:9 - Esforça-te e tem bom ânimo.";
+
+        // Eventos iniciais padrão (SEM o campo 'versiculo' aqui, ele agora é separado)
         const eventosIniciais = [
             {
                 id: 1,
@@ -531,8 +562,7 @@
                 hora: "17:00",
                 evento: "Culto de Gratidão",
                 descricao: "Um momento de agradecimento a Deus.",
-                local: "Igreja Batista Emanuel",
-                versiculo: "Salmos 107:1" 
+                local: "Igreja Batista Emanuel"
             },
             {
                 id: 2,
@@ -540,21 +570,77 @@
                 hora: "20:00",
                 evento: "Vigília Jovem",
                 descricao: "Noite de oração e louvor com a juventude.",
-                local: "Igreja Batista Emanuel",
-                versiculo: "Isaías 40:31" 
+                local: "Igreja Batista Emanuel"
             },
-            {
-                id: 3,
-                data: "25/12/2025",
-                hora: "19:00",
-                evento: "Culto de Natal",
-                descricao: "Celebração do nascimento de Jesus.",
-                local: "Igreja Batista Emanuel",
-                versiculo: "Lucas 2:11" 
-            }
         ];
 
-        /* --- Funções de Admin --- */
+        /* --- Funções de Versículo (Novo) --- */
+
+        // 1. Salvar Versículo
+        async function saveVersiculo(versiculo) {
+            try {
+                localStorage.setItem(STORAGE_KEY_VERSICULO, versiculo);
+                return true;
+            } catch (error) {
+                console.error('Erro ao salvar versículo no storage:', error);
+                return false;
+            }
+        }
+
+        // 2. Carregar Versículo
+        async function loadVersiculo() {
+            const stored = localStorage.getItem(STORAGE_KEY_VERSICULO);
+            return stored || versiculoInicial;
+        }
+
+        // 3. Atualizar e Exibir Versículo (Função do Admin)
+        async function updateVersiculo() {
+            const input = document.getElementById('novoVersiculoInput');
+            const novoVersiculo = input.value.trim();
+
+            if (!novoVersiculo) {
+                alert('O campo do Versículo não pode estar vazio.');
+                return;
+            }
+
+            const salvou = await saveVersiculo(novoVersiculo);
+            
+            if (salvou) {
+                // Atualiza a exibição na página principal
+                document.getElementById('versiculo-display').textContent = novoVersiculo;
+                // Limpa o campo de entrada no admin
+                input.value = '';
+                alert('✅ Versículo da Semana atualizado com sucesso!');
+            } else {
+                alert('❌ Erro ao atualizar Versículo.');
+            }
+        }
+
+
+        /* --- Funções de Eventos (Adaptadas) --- */
+
+        // Buscar eventos (sem o campo versiculo)
+        async function getEvents() {
+            const stored = localStorage.getItem(STORAGE_KEY_EVENTS);
+            if (stored) {
+                return JSON.parse(stored);
+            }
+            await saveEvents([...eventosIniciais]);
+            return [...eventosIniciais];
+        }
+
+        // Salvar eventos
+        async function saveEvents(eventos) {
+            try {
+                localStorage.setItem(STORAGE_KEY_EVENTS, JSON.stringify(eventos));
+                return true;
+            } catch (error) {
+                console.error('Erro ao salvar eventos no storage:', error);
+                return false;
+            }
+        }
+
+        // Funções Admin e Adicionar Evento (inalteradas, mas sem campo versiculo)
 
         function checkPassword() {
             document.getElementById('passwordModal').style.display = 'block';
@@ -562,7 +648,6 @@
 
         function validatePassword() {
             const password = document.getElementById('passwordInput').value;
-            // Senha fixa
             if (password === 'IBEMG2002') {
                 isAdmin = true;
                 closePasswordModal();
@@ -580,56 +665,28 @@
         function openAdmin() {
             document.getElementById('adminPanel').style.display = 'block';
             loadAdminEvents();
+            // Carrega o versículo atual para possível edição
+            loadVersiculo().then(v => {
+                document.getElementById('novoVersiculoInput').value = v === versiculoInicial ? '' : v;
+            });
         }
 
         function closeAdmin() {
             document.getElementById('adminPanel').style.display = 'none';
             isAdmin = false;
         }
-
-        /* --- Funções de Persistência e Atualização --- */
-
-        // Buscar eventos (com fallback para eventos iniciais)
-        async function getEvents() {
-            const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored) {
-                // Adiciona a propriedade 'versiculo' se ela não existir em eventos antigos
-                let eventos = JSON.parse(stored);
-                eventos = eventos.map(e => ({
-                    ...e,
-                    versiculo: e.versiculo !== undefined ? e.versiculo : (e.mensagem || 'A Palavra será o centro.')
-                }));
-                return eventos;
-            }
-            // Se não houver nada no storage, salva os eventos iniciais e retorna eles
-            await saveEvents([...eventosIniciais]);
-            return [...eventosIniciais];
-        }
-
-        // Salvar eventos
-        async function saveEvents(eventos) {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(eventos));
-                return true;
-            } catch (error) {
-                console.error('Erro ao salvar no storage:', error);
-                return false;
-            }
-        }
-
+        
         // Adicionar evento 
         async function addEvent() {
             const dateInput = document.getElementById('eventDate');
             const timeInput = document.getElementById('eventTime');
             const nameInput = document.getElementById('eventName');
-            const versiculoInput = document.getElementById('eventVersiculo'); 
             const descInput = document.getElementById('eventDesc');
             const localInput = document.getElementById('eventLocal');
             
             const date = dateInput.value;
             const time = timeInput.value;
             const name = nameInput.value;
-            const versiculo = versiculoInput.value;
             const desc = descInput.value;
             const local = localInput.value;
 
@@ -639,13 +696,12 @@
             }
 
             const evento = {
-                id: Date.now(), // ID único
-                data: date.split('-').reverse().join('/'), // Converte AAAA-MM-DD para DD/MM/AAAA
+                id: Date.now(), 
+                data: date.split('-').reverse().join('/'), 
                 hora: time,
                 evento: name,
                 descricao: desc || 'Sem descrição',
-                local: local || 'Igreja Batista Emanuel',
-                versiculo: versiculo || 'A Palavra será o centro.' 
+                local: local || 'Igreja Batista Emanuel'
             };
 
             const eventos = await getEvents();
@@ -658,11 +714,9 @@
                 dateInput.value = '';
                 timeInput.value = '';
                 nameInput.value = '';
-                versiculoInput.value = ''; 
                 descInput.value = '';
                 localInput.value = '';
                 
-                // Recarrega as listas após a modificação
                 await loadAdminEvents();
                 await loadPublicEvents();
                 
@@ -689,6 +743,7 @@
                 alert('❌ Erro ao excluir evento. Tente novamente.');
             }
         }
+
 
         /* --- Funções de Visualização --- */
 
@@ -732,7 +787,6 @@
                 return;
             }
 
-            // Mapeamento para exibição pública (com destaque no versículo)
             container.innerHTML = eventosFuturos.map(evento => `
                 <div class="event-card">
                     <div class="event-content">
@@ -741,7 +795,6 @@
                         <p class="event-date">🕐 ${evento.hora}</p>
                         <p class="event-date">📍 ${evento.local}</p>
                         <p>${evento.descricao}</p>
-                        ${evento.versiculo && evento.versiculo !== 'A Palavra será o centro.' ? `<p class="event-versiculo">📖 ${evento.versiculo}</p>` : ''}
                     </div>
                 </div>
             `).join('');
@@ -767,14 +820,12 @@
                 return;
             }
 
-            // Mapeamento para exibição no Painel Admin
             container.innerHTML = eventosOrdenados.map(evento => `
                 <div class="event-item">
                     <div>
                         <strong>${evento.evento}</strong><br>
                         📅 ${evento.data} às ${evento.hora} | 📍 ${evento.local}<br>
-                        📝 ${evento.descricao}<br>
-                        ${evento.versiculo ? `📖 ${evento.versiculo}` : ''}
+                        📝 ${evento.descricao}
                     </div>
                     <button class="btn-delete" onclick="deleteEvent(${evento.id})">🗑️ Excluir</button>
                 </div>
@@ -790,6 +841,11 @@
 
         // Inicializar quando a página carregar
         window.addEventListener('load', async () => {
+            // Carrega e exibe o Versículo
+            loadVersiculo().then(versiculo => {
+                document.getElementById('versiculo-display').textContent = versiculo;
+            });
+            
             await loadPublicEvents();
             
             // Adiciona evento para fechar o menu ao clicar em um link (mobile)
